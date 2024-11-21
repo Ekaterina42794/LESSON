@@ -7,5 +7,4 @@
 Истинно, если все символы в строке являются алфавитными (могут быть как строчными, так и прописными).
 Неверно, если хотя бы один символ не является алфавитом.
 Пример 1: Как работает? name = "Monica" print(name.isalpha()) # contains whitespace name = "Monica Geller" print(name.isalpha()) # contains number name = "Mo3nicaGell22er" print(name.isalpha())
-Источник: https://pythonstart.ru/string/isalpha-python
   '''
