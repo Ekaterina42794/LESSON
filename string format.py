@@ -176,6 +176,120 @@ print("{:^5}".format("cat"))
 # and '*' padding character
 print("{:*^5}".format("cat"))
 
+'''Пример 7: Усечение строк'''
+# truncating strings to 3 letters
+print("{:.3}".format("caterpillar"))
+
+# truncating strings to 3 letters # and padding
+print("{:5.3}".format("caterpillar"))
+
+# truncating strings to 3 letters,
+# padding and center alignment
+print("{:^5.3}".format("caterpillar"))
+
 '''Форматирование членов класса и словаря Python внутренне использует getattr() для членов класса в форме «.age».
 И он использует поиск __getitem __() для членов словаря в форме «[index]».'''
+'''Пример 8: Форматирование членов класса'''
+# define Person class
+class Person:
+    age = 23
+    name = "Adam"
 
+# format age
+print("{p.name}'s age is: {p.age}".format(p=Person()))
+'''Здесь объект Person передается как аргумент ключевого слова p . 
+Внутри строки шаблона доступ к имени и возрасту человека осуществляется с помощью .name и .age соответственно.'''
+#
+'''Пример 9: Форматирование элементов словаря'''
+# define Person dictionary
+person = {'age': 23, 'name': 'Adam'}
+
+# format age
+print("{p[name]}'s age is: {p[age]}".format(p=person))
+
+''' Подобно классу, словарь человека передается как аргумент ключевого слова p.
+Внутри строки шаблона для доступа к имени и возрасту человека используются [имя] и [возраст] соответственно. 
+Есть более простой способ форматирования словарей в Python с помощью str.format (** сопоставление). '''
+# define Person dictionary
+person = {'age': 23, 'name': 'Adam'}
+
+# format age
+print("{name}'s age is: {age}".format(**person))
+
+''' ** ‒ параметр формата (минимальная ширина поля). 
+
+Аргументы, как коды формата Вы также можете динамически передавать коды формата, такие как точность,
+ выравнивание, символ заполнения, как позиционные или ключевые аргументы.'''
+ #
+''' Пример 10: Динамическое форматирование    '''
+
+# dynamic string format template
+string = "{:{fill}{align}{width}}"
+
+# passing format codes as arguments
+print(string.format('cat', fill='*', align='^', width=5))
+
+# dynamic float format template
+num = "{:{align}{width}.{precision}f}"
+
+# passing format codes as arguments
+# ????   print(num.format(123.236, align='
+
+'''   Вот: 
+В первом примере «кошка» ‒ это позиционный аргумент, который нужно отформатировать. 
+Аналогично, fill = ‘*’, align = ‘^’ и width = 5 являются аргументами ключевого слова. 
+В строке шаблона эти ключевые аргументы извлекаются не как обычные строки для печати, 
+а как фактические коды формата fill, align и width. 
+Аргументы заменяют соответствующие именованные заполнители, и строка «cat» форматируется соответствующим образом. 
+Аналогичным образом, во втором примере 123.236 является позиционным аргументом, а параметры align,
+ width и precision передаются в строку шаблона как коды формата. 
+            Дополнительные параметры 
+ Команда также поддерживает параметры форматирования для конкретного типа, 
+ такие как форматирование даты и времени и комплексное числовое форматирование. 
+ Модуль внутренне вызывает __format __() для datetime, а format() обращается к атрибутам комплексного числа.
+Вы можете легко переопределить метод __format __() любого объекта для пользовательского форматирования.'''
+#
+''' Пример 11: Типовое форматирование с помощью format() и переопределения метода __format __() '''
+
+import datetime
+
+# datetime formatting
+date = datetime.datetime.now()
+print("It's now: {:%Y/%m/%d %H:%M:%S}".format(date))
+
+# complex number formatting
+complexNumber = 1+2j
+print("Real part: {0.real} and Imaginary part: {0.imag}".format(complexNumber))
+
+# custom __format__() method
+class Person:
+    def __format__(self, format):
+        if(format == 'age'):
+            return '23'
+        return 'None'
+print("Adam's age is: {:age}".format(Person()))
+# It's now: 2016/12/02 04:16:28
+#  part: 1.0 and Imaginary part: 2.0
+# Adam's age is: 23
+'''   Вот: 
+Для datetime: текущее datetime передается как позиционный аргумент методу format(). 
+И, внутренне используя метод __format __(), format() получает доступ к году, месяцу, дню, часу, минутам и секундам. 
+Для комплексных чисел: 1 + 2j внутренне преобразуется в объект ComplexNumber. 
+Затем, получив доступ к его атрибутам real и imag, число форматируется. 
+Переопределение __format __(): как и datetime, вы можете переопределить свой собственный метод __format __() 
+для настраиваемого форматирования, который возвращает возраст при доступе как {: age}. 
+Вы также можете использовать функции объекта __str __() и __repr __() с сокращенными обозначениями. 
+Как и __format __(), вы можете легко переопределить методы объекта __str __() и __repr_(). '''
+#
+'''Пример 12: __str() __ и __repr() __ сокращенное обозначение !R и !S'''
+# __str__() and __repr__() shorthand !r and !s
+print("Quotes: {0!r}, Without Quotes: {0!s}".format("cat"))
+
+# __str__() and __repr__() implementation for class
+class Person:
+    def __str__(self):
+        return "STR"
+    def __repr__(self):
+        return "REPR"
+
+print("repr: {p!r}, str: {p!s}".format(p=Person()))
