@@ -184,3 +184,4 @@ def print_params(a, b, c):  # *args, **kwargs
 list_ = [1, 2]      # 1 2,c
 dict_ = {'c': 3}    # a,b, 3
 print_params(*list_, **dict_) #1 2 3
+
